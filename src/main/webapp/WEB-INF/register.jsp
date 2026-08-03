@@ -1,0 +1,55 @@
+<%@ page language="java" %>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Register</title>
+
+</head>
+
+<body>
+
+<h2>User Registration</h2>
+
+<form action="register" method="post">
+
+Name
+
+<input type="text" name="name">
+
+<br><br>
+
+Email
+
+<input type="email" name="email">
+
+<br><br>
+
+Password
+
+<input type="password" name="password">
+
+<br><br>
+
+Role
+
+<select name="role">
+
+<option value="BUYER">Buyer</option>
+
+<option value="SELLER">Seller</option>
+
+</select>
+
+<br><br>
+
+<input type="submit" value="Register">
+
+</form>
+
+</body>
+
+</html>
