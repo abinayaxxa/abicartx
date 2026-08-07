@@ -33,11 +33,11 @@ public class RegisterServlet extends HttpServlet{
 
         boolean result=userDAO.registerUser(user);
 
-        if(result)
+        if(result){
             response.getWriter().println("Registration Successful");
-        else
+        }else{
             response.getWriter().println("Registration Failed");
-
+        }
     }
 
 }

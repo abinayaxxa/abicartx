@@ -9,7 +9,5 @@ public interface UserDAO{
 
     User getUserByEmail(String email);
 
-    boolean updateUser(User user);
-
     boolean deleteUser(int id);    
 }
