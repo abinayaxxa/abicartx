@@ -1,23 +1,31 @@
 <%@ page language="java" %>
+<%@ page import="com.abicart.model.User"%>
 
-<!DOCTYPE html>
+<%
+    User user=(User) session.getAttribute("user");
 
-<html>
+    if(user==null){
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 
-<head>
+<!DOCTYPE html> 
 
-<title>Home</title>
+<html> <head> <title>AbiCart - Home</title> </head> <body>
 
-</head>
-
-<body>
-
-<h2>Welcome</h2>
+<h1>Welcome to AbiCart</h1>
 
 <p>Login Successful</p>
 
+<h2>Your Profile</h2>
+
+<p><strong>Name:</strong> <%= user.getName() %></p>
+<p><strong>Email:</strong> <%= user.getEmail() %></p>
+<p><strong>Role:</strong> <%= user.getRole() %></p>
+
+<br>
+
 <a href="logout">Logout</a>
 
-</body>
-
-</html>
+</body> </html>
