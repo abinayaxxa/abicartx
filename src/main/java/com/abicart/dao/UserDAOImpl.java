@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import com.abicart.model.User;
 import com.abicart.util.DBConnection;
+import com.abicart.util.PasswordUtil;
 
 public class UserDAOImpl{
 
@@ -45,25 +46,28 @@ public class UserDAOImpl{
 
             Connection con=DBConnection.getConnection();
 
-            String sql="SELECT * FROM users WHERE email=? AND password=?";
+            String sql="SELECT * FROM users WHERE email=?";
 
             PreparedStatement ps=con.prepareStatement(sql);
 
-            ps.setString(1,email);
-            ps.setString(2,password);
+            ps.setString(1, email);
 
             ResultSet rs=ps.executeQuery();
 
             if(rs.next()){
+            
+                String hashedPassword = rs.getString("password");
 
-                user=new User();
-
-                user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("email"));
-                user.setPassword(rs.getString("password"));
-                user.setRole(rs.getString("role"));
-
+                if (PasswordUtil.checkPassword(password, hashedPassword)) {
+               
+                    user=new User();
+ 
+                    user.setId(rs.getInt("id"));
+                    user.setName(rs.getString("name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(hashedPassword);
+                    user.setRole(rs.getString("role"));
+                }
             }
             rs.close();
             ps.close();

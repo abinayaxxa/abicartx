@@ -12,19 +12,23 @@ public class DBConnection{
 
     public static Connection getConnection(){
 
-        Connection con=null;
-
         try{
             Class.forName("org.h2.Driver");
-            con=DriverManager.getConnection(URL,USER,PASSWORD);
+            Connection con=DriverManager.getConnection(URL,USER,PASSWORD);
+            System.out.println("H2 DATABASE CONNECTED SUCCESSFULLY!");
+
+            return con;
         }
         catch (ClassNotFoundException e){
+            System.out.println("H2 DRIVER NOT FOUND!");
+
             e.printStackTrace();
         }
         catch (SQLException e){
+            System.out.println("H2 DATABASE CONNECTION FAILED!");
             e.printStackTrace();
         }
-        return con;
+        return null;
     }
 
 }

@@ -31,12 +31,11 @@ public class LoginServlet extends HttpServlet{
 
             session.setAttribute("user",user);
 
-            response.getWriter().println("Login Successful");
-
+            response.sendRedirect("home.jsp");
+ 
         }
         else
-            response.getWriter().println("Invalid Email or Password");
-
+            response.sendRedirect("login.jsp?error=invalid");
     }
 
 }

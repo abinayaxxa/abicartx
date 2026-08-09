@@ -14,6 +14,10 @@
 
 <h2>User Login</h2>
 
+<% if ("invalid".equals(request.getParameter("error"))) { %>
+    <p>Invalid Email or Password</p>
+<% } %>
+
 <form action="login" method="post">
 
 Email
