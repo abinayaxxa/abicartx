@@ -23,8 +23,29 @@
 <p><strong>Name:</strong> <%= user.getName() %></p>
 <p><strong>Email:</strong> <%= user.getEmail() %></p>
 <p><strong>Role:</strong> <%= user.getRole() %></p>
+<hr>
+<h2>Shopping</h2>
 
-<br>
+<a href="products.jsp">Browse Products</a>
+<%
+if("SELLER".equals(user.getRole())){
+%>
+
+<hr>
+
+<h2>Seller Menu</h2>
+
+<a href="addProduct.jsp">Add Product</a>
+
+<br><br>
+
+<a href="sellerProducts.jsp">My Products</a>
+
+<%
+}
+%>
+
+<br><br>
 
 <a href="logout">Logout</a>
 
