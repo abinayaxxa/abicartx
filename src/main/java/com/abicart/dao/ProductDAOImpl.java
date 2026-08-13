@@ -13,7 +13,7 @@ import com.abicart.util.DBConnection;
 public class ProductDAOImpl implements ProductDAO{
 
     public boolean addProduct(Product product){
-        String sql="INSERT INTO PRODUCTS(SELLER_ID,NAME,DESCRIPTION,CATEGORY,PRICE,STOCK) VALUES(?,?,?,?,?,?)";
+        String sql="INSERT INTO PRODUCTS(SELLER_ID,NAME,DESCRIPTION,CATEGORY,PRICE,STOCK,IMAGE_URL) VALUES(?,?,?,?,?,?,?)";
 
         try(Connection con=DBConnection.getConnection();
             PreparedStatement ps=con.prepareStatement(sql)){
@@ -24,6 +24,7 @@ public class ProductDAOImpl implements ProductDAO{
             ps.setString(4,product.getCategory());
             ps.setBigDecimal(5,product.getPrice());
             ps.setInt(6,product.getStock());
+            ps.setString(7,product.getImageUrl());
 
             return ps.executeUpdate()>0;
 
@@ -137,7 +138,33 @@ public class ProductDAOImpl implements ProductDAO{
 
         return false;
     }
-
+    public List<Product> searchProducts(String keyword){
+        List<Product> products=new ArrayList<>();
+        String sql = """
+            SELECT * FROM PRODUCTS
+            WHERE LOWER(NAME) LIKE ?
+               OR LOWER(DESCRIPTION) LIKE ?
+               OR LOWER(CATEGORY) LIKE ?
+               ORDER BY ID DESC
+               """;
+            try (Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)){
+                
+                String searchPattern="%" + keyword.toLowerCase().trim() + "%";
+                
+                ps.setString(1, searchPattern);
+                ps.setString(2, searchPattern);
+                ps.setString(3, searchPattern);
+                try (ResultSet rs=ps.executeQuery()){
+                    while (rs.next()){
+                        products.add(mapProduct(rs));
+                    }
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+             return products;
+    }
     private Product mapProduct(ResultSet rs)throws SQLException{
         Product product=new Product();
 
@@ -148,6 +175,7 @@ public class ProductDAOImpl implements ProductDAO{
         product.setCategory(rs.getString("CATEGORY"));
         product.setPrice(rs.getBigDecimal("PRICE"));
         product.setStock(rs.getInt("STOCK"));
+        product.setImageUrl(rs.getString("IMAGE_URL"));
 
         return product;
     }

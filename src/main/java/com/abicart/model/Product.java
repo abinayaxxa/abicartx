@@ -9,6 +9,7 @@ public class Product {
     private String category;
     private BigDecimal price;
     private int stock;
+    private String imageUrl;
 
     public Product(){
     }
@@ -63,4 +64,11 @@ public class Product {
     public void setStock(int stock){
         this.stock=stock;
     }
+    public String getImageUrl(){
+    return imageUrl;
+    }
+    public void setImageUrl(String imageUrl){
+    this.imageUrl=imageUrl;
+    }
+    
 }

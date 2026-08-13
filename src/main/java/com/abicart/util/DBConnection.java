@@ -1,34 +1,55 @@
 package com.abicart.util;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection{
 
-    private static final String URL="jdbc:h2:~/abicartdb";
-    private static final String USER="sa";
-    private static final String PASSWORD="";
+    private static final HikariDataSource dataSource;
 
-    public static Connection getConnection(){
+    static{
+        HikariConfig config=new HikariConfig();
 
-        try{
-            Class.forName("org.h2.Driver");
-            Connection con=DriverManager.getConnection(URL,USER,PASSWORD);
-            System.out.println("H2 DATABASE CONNECTED SUCCESSFULLY!");
+        String dbUrl = System.getenv("DB_URL");
+        String dbUsername = System.getenv("DB_USERNAME");
+        String dbPassword = System.getenv("DB_PASSWORD");
 
-            return con;
+        if (dbUrl==null || dbUrl.isBlank()){
+            dbUrl="jdbc:h2:~/abicartdb";
+            dbUsername="sa";
+            dbPassword="";
         }
-        catch (ClassNotFoundException e){
-            System.out.println("H2 DRIVER NOT FOUND!");
+        config.setJdbcUrl(dbUrl);
+        config.setDriverClassName("org.h2.Driver");
+        config.setUsername(dbUsername != null ? dbUsername : "sa");
+        config.setPassword(dbPassword != null ? dbPassword : "");
+        
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(2);
+        config.setConnectionTimeout(30000);
+        config.setIdleTimeout(600000);
+        config.setMaxLifetime(1800000);
 
-            e.printStackTrace();
+        dataSource=new HikariDataSource(config);
+        System.out.println("DATABASE CONNECTION POOL CREATED SUCCESSFULLY!");
+        System.out.println("Database URL: " + dbUrl);
+
+    }
+
+    private DBConnection(){
+    }
+    public static Connection getConnection() throws SQLException{
+        return dataSource.getConnection();
+    }
+
+    public static void closePool(){
+        if(dataSource != null && !dataSource.isClosed()){
+            dataSource.close();
+            System.out.println("DATABASE CONNECTION POOL CLOSED.");
         }
-        catch (SQLException e){
-            System.out.println("H2 DATABASE CONNECTION FAILED!");
-            e.printStackTrace();
-        }
-        return null;
     }
 
 }

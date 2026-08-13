@@ -10,8 +10,6 @@
   <packaging>war</packaging>
 
   <name>abicartx Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,6 +35,22 @@
     <groupId>org.mindrot</groupId>
     <artifactId>jbcrypt</artifactId>
     <version>0.4</version>
+  </dependency>
+  <dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.13.4</version>
+    <scope>test</scope>
+  </dependency>
+  <dependency>
+    <groupId>com.zaxxer</groupId>
+    <artifactId>HikariCP</artifactId>
+    <version>6.3.0</version>
+  </dependency>
+  <dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.7.7</version>
   </dependency>
   </dependencies>
 

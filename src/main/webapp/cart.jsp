@@ -83,10 +83,10 @@ for(CartItem item:cart){
     <td><%= item.getProduct().getCategory() %></td>
     <td>Rs. <%= item.getProduct().getPrice() %></td>
     <td>
-        <form action="updateCart" method="post">
+        <form action="updateCart" method="post" style="display:inline;">
             <input type="hidden" name="productId" value="<%= item.getProduct().getId() %>">
 
-            <button type="submit" name="quantity" value="<%= item.getQuantity()-1 %>">−</button>
+            <button type="submit" name="quantity" value="<%= item.getQuantity()-1 %>">-</button>
 
             <%= item.getQuantity() %>
 
@@ -96,10 +96,12 @@ for(CartItem item:cart){
     
     <td>Rs. <%= total %></td>
     <td> 
-        <form action="removeFromCart" method="post"> 
-            <input type="hidden" name="productId" value="<%= item.getProduct().getId() %>"> 
-            <button type="submit">Remove</button> 
-        </form> 
+       <form action="removeFromCart" method="post" style="display:inline;">
+       <input type="hidden" name="productId" value="<%= item.getProduct().getId() %>">
+
+      <button type="submit">
+        Remove </button>
+      </form> 
     </td> 
 </tr>
 
@@ -108,7 +110,7 @@ for(CartItem item:cart){
 %>
 
 <tr> 
-    <td colspan="5"><strong>Grand Total</strong></td> 
+    <td colspan="3"><strong>Grand Total</strong></td> 
     <td colspan="2"><strong>Rs. <%= grandTotal %></strong></td> 
 </tr>
 

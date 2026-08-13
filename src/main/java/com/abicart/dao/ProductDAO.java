@@ -17,4 +17,6 @@ public interface ProductDAO{
     boolean updateProduct(Product product);
 
     boolean deleteProduct(int id);
+
+    List<Product> searchProducts(String keyword);
 }

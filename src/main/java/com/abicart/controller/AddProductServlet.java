@@ -38,6 +38,7 @@ public class AddProductServlet extends HttpServlet{
         String category=request.getParameter("category");
         String priceText=request.getParameter("price");
         String stockText=request.getParameter("stock");
+        String imageUrl=request.getParameter("imageUrl");
 
         try{
             BigDecimal price=new BigDecimal(priceText);
@@ -48,6 +49,7 @@ public class AddProductServlet extends HttpServlet{
             product.setName(name);
             product.setDescription(description);
             product.setCategory(category);
+            product.setImageUrl(imageUrl);
             product.setPrice(price);
             product.setStock(stock);
 

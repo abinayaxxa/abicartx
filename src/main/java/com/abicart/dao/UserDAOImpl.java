@@ -13,14 +13,11 @@ public class UserDAOImpl{
 
   public boolean registerUser(User user){
 
-    Connection con=DBConnection.getConnection();
-
     String sql="INSERT INTO users(name, email, password, role) VALUES (?, ?, ?, ?)";
 
-    try{
+    try(Connection con=DBConnection.getConnection();
+             PreparedStatement ps=con.prepareStatement(sql)){
 
-          PreparedStatement ps=con.prepareStatement(sql);
- 
           ps.setString(1, user.getName());
           ps.setString(2, user.getEmail());
           ps.setString(3, user.getPassword());
@@ -28,50 +25,41 @@ public class UserDAOImpl{
   
           int rows=ps.executeUpdate();
 
-          if(rows>0){
-              return true;
-        
-            }
+            return rows>0;
         }
         catch (SQLException e){
         e.printStackTrace();
+        return false;
     }
-    return false;
+    
   }
     public User loginUser(String email,String password){
 
         User user=null;
 
-        try{
-
-            Connection con=DBConnection.getConnection();
-
-            String sql="SELECT * FROM users WHERE email=?";
-
-            PreparedStatement ps=con.prepareStatement(sql);
+        String sql = "SELECT * FROM users WHERE email=?";
+        try(Connection con=DBConnection.getConnection();
+             PreparedStatement ps=con.prepareStatement(sql)){
 
             ps.setString(1, email);
 
-            ResultSet rs=ps.executeQuery();
-
-            if(rs.next()){
-            
-                String hashedPassword = rs.getString("password");
-
-                if (PasswordUtil.checkPassword(password, hashedPassword)) {
-               
-                    user=new User();
+            try(ResultSet rs=ps.executeQuery()){
+                if(rs.next()){
+                    String hashedPassword = rs.getString("password");
+                    
+                    if (PasswordUtil.checkPassword(password, hashedPassword)) {
+                        
+                        user=new User();
  
-                    user.setId(rs.getInt("id"));
-                    user.setName(rs.getString("name"));
-                    user.setEmail(rs.getString("email"));
-                    user.setPassword(hashedPassword);
-                    user.setRole(rs.getString("role"));
+                        user.setId(rs.getInt("id"));
+                        user.setName(rs.getString("name"));
+                        user.setEmail(rs.getString("email"));
+                        user.setPassword(hashedPassword);
+                        user.setRole(rs.getString("role"));
+                    }
                 }
             }
-            rs.close();
-            ps.close();
-            con.close();
+        
         } 
         catch(SQLException e){
             e.printStackTrace();

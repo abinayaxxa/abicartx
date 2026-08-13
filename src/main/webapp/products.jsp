@@ -11,9 +11,19 @@ if(user==null){
 response.sendRedirect("login.jsp");
 return;
 }
-
 ProductDAOImpl productDAO=new ProductDAOImpl();
-List<Product> products=productDAO.getAllProducts();
+
+String keyword=request.getParameter("search");
+
+List<Product>products;
+
+if (keyword != null && !keyword.trim().isEmpty()){
+    products=productDAO.searchProducts(keyword);
+}
+else{
+    products=productDAO.getAllProducts();
+}
+
 %>
 
 <!DOCTYPE html>
@@ -28,6 +38,29 @@ List<Product> products=productDAO.getAllProducts();
 
 <h2>Products</h2>
 
+<form action="products.jsp" method="get">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search products..."
+    >
+
+    <button type="submit">🔎 Search</button>
+
+    <%
+        if (keyword != null && !keyword.trim().isEmpty()){
+    %>
+
+        <a href="products.jsp">Clear</a>
+
+    <%
+        }
+    %>
+
+</form>
+
+<br>
 <%
 if(products.isEmpty()){
 %>
@@ -41,6 +74,7 @@ if(products.isEmpty()){
 <table border="1" cellpadding="8">
 
 <tr>
+    <th>Image</th>
     <th>Name</th>
     <th>Description</th>
     <th>Category</th>
@@ -54,14 +88,26 @@ for(Product product:products){
 %>
 
 <tr>
+    <td>
+        <img src="<%= product.getImageUrl() %>"
+             alt="<%= product.getName() %>"
+             width="120"
+             height="120"
+             style="object-fit: contain;">
+    </td>
     <td><%= product.getName() %></td>
     <td><%= product.getDescription() %></td>
     <td><%= product.getCategory() %></td>
     <td>Rs. <%= product.getPrice() %></td>
     <td><%= product.getStock() %></td>
-    <td> <form action="addToCart" method="post"> 
-        <input type="hidden" name="productId" value="<%= product.getId() %>"> 
-        <button type="submit">Add to Cart</button> </form> </td> 
+    <td> 
+        <form action="addToCart" method="post"> 
+            <input type="hidden" 
+                   name="productId" 
+                   value="<%= product.getId() %>"> 
+            <button type="submit">Add to Cart</button> 
+        </form> 
+    </td> 
 </tr>
 
 <%
