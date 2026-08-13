@@ -23,7 +23,7 @@ public class DBConnection{
             dbPassword="";
         }
         config.setJdbcUrl(dbUrl);
-        config.setDriverClassName("org.h2.Driver");
+        config.setDriverClassName("org.postgresql.Driver");
         config.setUsername(dbUsername != null ? dbUsername : "sa");
         config.setPassword(dbPassword != null ? dbPassword : "");
         

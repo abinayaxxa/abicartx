@@ -12,9 +12,9 @@
 
 <!DOCTYPE html> 
 
-<html> <head> <title>AbiCart - Home</title> </head> <body>
+<html> <head> <title>AbiCartX - Home</title> </head> <body>
 
-<h1>Welcome to AbiCart</h1>
+<h1>Welcome to AbiCartX</h1>
 
 <p>Login Successful</p>
 
