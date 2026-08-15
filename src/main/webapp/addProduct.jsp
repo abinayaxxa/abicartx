@@ -19,7 +19,7 @@ if(!"SELLER".equals(user.getRole())){
 <head>
 
      <meta charset="UTF-8">
-    <title>Add Product - AbiCart</title>
+    <title>Add Product - AbiCartX</title>
 
     <style>
         * {
@@ -181,7 +181,7 @@ if(!"SELLER".equals(user.getRole())){
 </head>
 <body>
 <header class="header">
-    <div class="logo">AbiCart</div>
+    <div class="logo">AbiCartX</div>
 
     <div class="seller">
         Seller: <strong><%= user.getName() %></strong>
@@ -195,7 +195,7 @@ if(!"SELLER".equals(user.getRole())){
         <h2 class="title">Add New Product</h2>
 
         <p class="subtitle">
-            Enter your product details to list it on AbiCart.
+            Enter your product details to list it on AbiCartX.
         </p>
 
         <%

@@ -25,6 +25,18 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+
+  <dependency>
+     <groupId>org.glassfish.web</groupId>
+     <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+     <version>3.0.1</version>
+  </dependency>
+
   <dependency>
     <groupId>com.h2database</groupId>
     <artifactId>h2</artifactId>
@@ -36,22 +48,39 @@
     <artifactId>jbcrypt</artifactId>
     <version>0.4</version>
   </dependency>
+
   <dependency>
     <groupId>org.junit.jupiter</groupId>
     <artifactId>junit-jupiter</artifactId>
     <version>5.13.4</version>
     <scope>test</scope>
   </dependency>
+
   <dependency>
     <groupId>com.zaxxer</groupId>
     <artifactId>HikariCP</artifactId>
     <version>6.3.0</version>
   </dependency>
+
   <dependency>
     <groupId>org.postgresql</groupId>
     <artifactId>postgresql</artifactId>
     <version>42.7.7</version>
   </dependency>
+
+  <dependency>
+     <groupId>org.mindrot</groupId>
+     <artifactId>jbcrypt</artifactId>
+     <version>0.4</version>
+  </dependency>
+
+  <dependency>
+     <groupId>org.junit.jupiter</groupId>
+     <artifactId>junit-jupiter</artifactId>
+     <version>5.11.0</version>
+     <scope>test</scope>
+  </dependency>
+
   </dependencies>
 
   <build>
@@ -75,6 +104,11 @@
                 <failOnMissingWebXml>false</failOnMissingWebXml>
             </configuration>
         </plugin>
+        <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.0</version>
+            </plugin>
     </plugins>
   </build>
 </project>

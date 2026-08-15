@@ -25,7 +25,7 @@ List<Product> products=productDAO.getProductsBySeller(user.getId());
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>My Products - AbiCart</title>
+    <title>My Products - AbiCartX</title>
     <style>
         *{
             box-sizing: border-box;
@@ -47,9 +47,10 @@ List<Product> products=productDAO.getProductsBySeller(user.getId());
             align-items: center;
         }
 
-        .logo{
-            font-size: 28px;
-            font-weight: bold;
+        .logo img{
+            width: 150px;
+            height: auto;
+            display: block;
         }
 
         .seller{
@@ -193,7 +194,8 @@ List<Product> products=productDAO.getProductsBySeller(user.getId());
 <header class="header">
 
     <div class="logo">
-        AbiCart
+        <img src="<%= request.getContextPath() %>/images/logo.png"
+             alt="AbiCartX Logo">
     </div>
 
     <div class="seller">
@@ -227,7 +229,7 @@ List<Product> products=productDAO.getProductsBySeller(user.getId());
             <h3>No Products Yet</h3>
 
             <p>
-                You haven't added any products to AbiCart.
+                You haven't added any products to AbiCartX.
             </p>
 
             <a href="addProduct.jsp" class="add-btn">
