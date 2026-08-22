@@ -17,13 +17,12 @@ public class DBConnection{
         String dbUsername = System.getenv("DB_USERNAME");
         String dbPassword = System.getenv("DB_PASSWORD");
 
-        if (dbUrl==null || dbUrl.isBlank()){
-            dbUrl="jdbc:h2:~/abicartdb";
-            dbUsername="sa";
-            dbPassword="";
-        }
+        if(dbUrl==null || dbUrl.isBlank() || dbUsername==null || dbUsername.isBlank() || dbPassword==null){
+            throw new IllegalStateException("Database environment variables are not configured.");
+       }
+    
         config.setJdbcUrl(dbUrl);
-        config.setDriverClassName("org.h2.Driver");
+        config.setDriverClassName("org.postgresql.Driver");
         config.setUsername(dbUsername != null ? dbUsername : "sa");
         config.setPassword(dbPassword != null ? dbPassword : "");
         

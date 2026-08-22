@@ -58,8 +58,9 @@ else{
         }
 
         .logo img{
-            width: 150px;
-            height: auto;
+            width: 110px;
+            height: 50px;
+            object-fit:contain;
             display: block;
         }
 
